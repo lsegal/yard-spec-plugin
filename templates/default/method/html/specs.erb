@@ -1,0 +1,28 @@
+<div class="section specs">
+  <h3>Specifications</h3>
+  <ul>
+  <% for spec in object[:specifications] %>
+    <li>
+      <%= spec[:name] %> 
+      <span>(<a class="source_link" href="#">View source</a>)</span>
+      <div class="source_code">
+        <table>
+          <tr>
+            <td>
+              <pre class="lines">
+
+
+<%= h format_lines(object) %></pre>
+            </td>
+            <td>
+              <pre class="code"><span class="info file"># File '<%= h spec[:file] %>', line <%= spec[:line] %></span>
+
+<%= html_syntax_highlight spec[:source] %></pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  <% end %>
+  </ul>
+</div>

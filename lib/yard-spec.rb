@@ -1,6 +1,5 @@
 require 'yard'
-
-$RSpecCount = 0
+require 'ostruct'
 
 class SpecificationGroupObject < YARD::CodeObjects::NamespaceObject
   attr_accessor :test_class, :specifications
@@ -17,10 +16,16 @@ class RSpecDescribeHandler < YARD::Handlers::Ruby::Base
   handles method_call(:describe)
   
   def process
-    obj = register SpecificationGroupObject.new(namespace, "Test#{$RSpecCount += 1}") do |o|
-      o.test_class = P(statement.parameters.first.source)
+    name = statement.parameters.first.source
+    if statement.parameters[1]
+      src = statement.parameters[1].jump(:string_content).source
+      name += (src[0] == "#" ? "" : "::") + src
     end
-    parse_block(statement.last.last, namespace: obj)
+    object = P(name)
+    ensure_loaded! object
+    object[:specifications] ||= []
+    parse_block(statement.last.last, owner: object)
+  rescue YARD::Handlers::NamespaceMissingError
   end
 end
 
@@ -28,13 +33,33 @@ class RSpecItHandler < YARD::Handlers::Ruby::Base
   handles method_call(:it)
   
   def process
-    namespace.specifications << statement.parameters.first.jump(:string_content).source
+    owner[:specifications] << {}.tap do |o|
+      source = statement.source.chomp
+      indent = source.split(/\r?\n/).last[/^([ \t]*)/, 1].length
+      o[:source] = source.gsub(/^[ \t]{#{indent}}/, '')
+      o[:name] = statement.parameters.first.jump(:string_content).source
+      o[:file] = statement.file
+      o[:line] = statement.line
+    end
   end
 end
 
-YARD.parse Dir.glob(ARGV[0])
-
-YARD::Registry.all(:specification_group).each do |spec|
-  puts "Specifications for: #{spec.test_class.path}"
-  puts spec.specifications.join("\n").gsub(/^/, '  - ')
+module YARD
+  module Generators
+    class MethodGenerator
+      before_section :specs, :has_specs?
+      
+      def sections_for(object) 
+        [:header, [:title, [G(MethodSignatureGenerator), :aliases],
+         G(DeprecatedGenerator), :specs, G(DocstringGenerator), 
+         G(TagsGenerator), G(SourceGenerator)]]
+      end
+      
+      def has_specs?(object)
+        object[:specifications] && object[:specifications].size > 0 ? true : false
+      end
+    end
+  end
 end
+
+YARD::Generators::Base.register_template_path File.dirname(__FILE__) + '/../templates/'
