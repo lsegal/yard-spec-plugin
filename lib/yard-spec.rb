@@ -1,16 +1,4 @@
 require 'yard'
-require 'ostruct'
-
-class SpecificationGroupObject < YARD::CodeObjects::NamespaceObject
-  attr_accessor :test_class, :specifications
-  def type; :specification_group end
-  def path; "__RSpecTest::" + super end
-  
-  def initialize(*args)
-    super
-    @specifications = []
-  end
-end
 
 class RSpecDescribeHandler < YARD::Handlers::Ruby::Base
   handles method_call(:describe)
@@ -51,7 +39,7 @@ module YARD
       
       def sections_for(object) 
         [:header, [:title, [G(MethodSignatureGenerator), :aliases],
-         G(DeprecatedGenerator), :specs, G(DocstringGenerator), 
+         G(DeprecatedGenerator), G(DocstringGenerator), :specs, 
          G(TagsGenerator), G(SourceGenerator)]]
       end
       
