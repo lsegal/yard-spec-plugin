@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="style.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="custom.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="syntax_highlight.css" type="text/css" charset="utf-8" />
+
+    <title>README.txt</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="section docstring readme">
+        <h1>Embedding RSpec Specifications in YARD Documentation</h1>
+<p>
+This plugin demonstrates how RSpec tests can be embedded within standard
+documentation using only a small amount of plugin code. The example
+generates documentation for the following <tt><a href="String.html#pig_latin-instance_method" title="String#pig_latin">String#pig_latin</a></tt> method and
+RSpec tests:
+</p>
+<pre class="code">
+  <span class='comment'># Run `yardoc example_code.rb`
+</span>
+  <span class='kw'>class</span> <span class='const'>String</span>
+    <span class='comment'># Pig latin of a String
+</span>    <span class='kw'>def</span> <span class='id pig_latin'>pig_latin</span>
+      <span class='kw'>self</span><span class='lbracket'>[</span><span class='int'>1</span><span class='op'>..</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ay</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'>#
+</span>  <span class='comment'># Specs
+</span>  <span class='comment'>#
+</span>  <span class='id describe'>describe</span> <span class='const'>String</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>#pig_latin</span><span class='tstring_end'>'</span></span> <span class='kw'>do</span>
+    <span class='id it'>it</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>should be a pig!</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hello</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id pig_latin'>pig_latin</span><span class='period'>.</span><span class='id should'>should</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ellohay</span><span class='tstring_end'>&quot;</span></span>
+     <span class='kw'>end</span>
+
+    <span class='id it'>it</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>should fail to be a pig!</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hello</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id pig_latin'>pig_latin</span><span class='period'>.</span><span class='id should'>should</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hello</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+</pre>
+<p>
+View the &#8220;Specifications&#8221; section within the <tt><a href="String.html#pig_latin-instance_method" title="String#pig_latin">String#pig_latin</a></tt>
+method to see these tests.
+</p>
+
+      </div>
+    </div>
+    <div id="yard_info">
+  Generated on Thursday, August 13 2009 at 02:09:40 PM by 
+  <abbr class="yard" title="Yay! A Ruby Documentation Tool"><a href="http://yard.soen.ca">YARD</a></abbr> 
+  0.2.3.4 (ruby-1.9.1).
+</div>
+
+  </body>
+</html>
