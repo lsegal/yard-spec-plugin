@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="style.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="syntax_highlight.css" type="text/css" charset="utf-8" />
+
+    <title>yard-spec.rb</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="section docstring readme">
+        <p>
+require &#8216;yard&#8217;
+</p>
+<p>
+class RSpecDescribeHandler < YARD::Handlers::Ruby::Base
+</p>
+<pre class="code">
+  handles method_call(:describe)
+
+  def process
+    name = statement.parameters.first.source
+    if statement.parameters[1]
+      src = statement.parameters[1].jump(:string_content).source
+      name <tt>= (src[0] == "#" ? "" : "::") </tt> src
+    end
+    object = P(name)
+    ensure_loaded! object
+    object[:specifications] ||= []
+    parse_block(statement.last.last, owner: object)
+  rescue YARD::Handlers::NamespaceMissingError
+  end
+</pre>
+<p>
+end
+</p>
+<p>
+class RSpecItHandler < YARD::Handlers::Ruby::Base
+</p>
+<pre class="code">
+  <span class='id handles'>handles</span> <span class='id method_call'>method_call</span><span class='lparen'>(</span><span class='symbol'>:it</span><span class='rparen'>)</span>
+
+  <span class='kw'>def</span> <span class='id process'>process</span>
+    <span class='id owner'>owner</span><span class='lbracket'>[</span><span class='symbol'>:specifications</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id o'>o</span><span class='op'>|</span>
+      <span class='id source'>source</span> <span class='op'>=</span> <span class='id statement'>statement</span><span class='period'>.</span><span class='id source'>source</span><span class='period'>.</span><span class='id chomp'>chomp</span>
+      <span class='id indent'>indent</span> <span class='op'>=</span> <span class='id source'>source</span><span class='period'>.</span><span class='id split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\r?\n</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id last'>last</span><span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^([ \t]*)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id length'>length</span>
+      <span class='id o'>o</span><span class='lbracket'>[</span><span class='symbol'>:source</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id source'>source</span><span class='period'>.</span><span class='id gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^[ \t]{</span><span class='embexpr_beg'>#{</span><span class='id indent'>indent</span><span class='rbrace'>}</span><span class='tstring_content'>}</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+      <span class='id o'>o</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id statement'>statement</span><span class='period'>.</span><span class='id parameters'>parameters</span><span class='period'>.</span><span class='id first'>first</span><span class='period'>.</span><span class='id jump'>jump</span><span class='lparen'>(</span><span class='symbol'>:string_content</span><span class='rparen'>)</span><span class='period'>.</span><span class='id source'>source</span>
+      <span class='id o'>o</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id statement'>statement</span><span class='period'>.</span><span class='id file'>file</span>
+      <span class='id o'>o</span><span class='lbracket'>[</span><span class='symbol'>:line</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id statement'>statement</span><span class='period'>.</span><span class='id line'>line</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+</pre>
+<p>
+end
+</p>
+<p>
+module YARD
+</p>
+<pre class="code">
+  <span class='kw'>module</span> <span class='const'>Generators</span>
+    <span class='kw'>class</span> <span class='const'>MethodGenerator</span>
+      <span class='id before_section'>before_section</span> <span class='symbol'>:specs</span><span class='comma'>,</span> <span class='symbol'>:has_specs?</span>
+
+      <span class='kw'>def</span> <span class='id sections_for'>sections_for</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+        <span class='lbracket'>[</span><span class='symbol'>:header</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:title</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='const'>G</span><span class='lparen'>(</span><span class='const'>MethodSignatureGenerator</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='symbol'>:aliases</span><span class='rbracket'>]</span><span class='comma'>,</span>
+         <span class='const'>G</span><span class='lparen'>(</span><span class='const'>DeprecatedGenerator</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='symbol'>:specs</span><span class='comma'>,</span> <span class='const'>G</span><span class='lparen'>(</span><span class='const'>DocstringGenerator</span><span class='rparen'>)</span><span class='comma'>,</span>
+         <span class='const'>G</span><span class='lparen'>(</span><span class='const'>TagsGenerator</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='const'>G</span><span class='lparen'>(</span><span class='const'>SourceGenerator</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+      <span class='kw'>end</span>
+
+      <span class='kw'>def</span> <span class='id has_specs?'>has_specs?</span><span class='lparen'>(</span><span class='id object'>object</span><span class='rparen'>)</span>
+        <span class='id object'>object</span><span class='lbracket'>[</span><span class='symbol'>:specifications</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id object'>object</span><span class='lbracket'>[</span><span class='symbol'>:specifications</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id size'>size</span> <span class='op'>&gt;</span> <span class='int'>0</span> <span class='op'>?</span> <span class='kw'>true</span> <span class='op'>:</span> <span class='kw'>false</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+</pre>
+<p>
+end
+</p>
+<p>
+YARD::Generators::Base.register_template_path File.dirname(<em>FILE</em>) +
+&#8217;/../templates/&#8217;
+</p>
+
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="style.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="syntax_highlight.css" type="text/css" charset="utf-8" />
+
+    <script src="jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="app.js" type="text/javascript" charset="utf-8"></script>
+    <title>Class: String</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="section class String">
+  <h1 class="title">Class: String</h1>
+  <div class="section constants">
+  
+</div>  <div class="section visibilitygroup public">
+    <h1>Public Visibility</h1>
+      <div class="section methodsummary instance public">
+    <h1>Public Instance Method Summary</h1>
+<table class="summary">
+  
+    <tr>
+      <th class="signature">
+        
+          <span class='overload'>
+            <span class='name'><a href="#pig_latin-instance_method" title="#pig_latin">#pig_latin</a></span><span class='args'></span>
+            <span class='block'></span>
+          </span>
+        
+        
+      </th>
+      <td class="docstring">
+        <p>
+Pig latin of a String.
+</p>
+
+        
+      </td>
+    </tr>
+  
+</table>
+
+  </div>
+<div class="section methoddetails instance public">
+  <h1>Public Instance Method Details</h1>
+  
+    <div class="method">
+      <div class="method_header">
+  <h3>pig_latin</h3>
+</div><div id="pig_latin-instance_method" class="section method">
+  <div class="details_title">
+    <div class='section methodsignature'>
+    <tt class='def'>
+      <span class='visibility'>public</span>
+      <span class='return_types'></span>
+      <span class='name'>pig_latin</span><span class='args'></span>
+      <span class='block'></span>
+    </tt>
+  </div>
+
+</div><div class="section docstring">
+  <p>
+Pig latin of a String
+</p>
+
+</div><div class="section specs">
+  <h3>Specifications</h3>
+  <ul>
+  
+    <li>
+      should be a pig! 
+      <span>(<a class="source_link" href="#">View source</a>)</span>
+      <div class="source_code">
+        <table>
+          <tr>
+            <td>
+              <pre class="lines">
+
+
+3
+4
+5</pre>
+            </td>
+            <td>
+              <pre class="code"><span class="info file"># File 'lib/example/example_code.rb', line 12</span>
+
+<span class='id it'>it</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>should be a pig!</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
+ <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hello</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id pig_latin'>pig_latin</span><span class='period'>.</span><span class='id should'>should</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ellohay</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+    <li>
+      should fail to be a pig! 
+      <span>(<a class="source_link" href="#">View source</a>)</span>
+      <div class="source_code">
+        <table>
+          <tr>
+            <td>
+              <pre class="lines">
+
+
+3
+4
+5</pre>
+            </td>
+            <td>
+              <pre class="code"><span class="info file"># File 'lib/example/example_code.rb', line 16</span>
+
+<span class='id it'>it</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>should fail to be a pig!</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hello</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id pig_latin'>pig_latin</span><span class='period'>.</span><span class='id should'>should</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hello</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+  </ul>
+</div><div class="section source">
+  <span>[<a class="source_link" href="#">View source</a>]</span>
+  <div class="source_code">
+    <table>
+      <tr>
+        <td>
+          <pre class="lines">
+
+
+3
+4
+5</pre>
+        </td>
+        <td>
+          <pre class="code"><span class="info file"># File 'lib/example/example_code.rb', line 3</span>
+
+<span class='kw'>def</span> <span class='id pig_latin'>pig_latin</span>
+  <span class='kw'>self</span><span class='lbracket'>[</span><span class='int'>1</span><span class='op'>..</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ay</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
+    </div>
+  
+</div>
+  </div>
+
+</div>
+    </div>
+  </body>
+</html>
