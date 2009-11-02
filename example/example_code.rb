@@ -11,12 +11,14 @@ end
 # 
 # Specs
 # 
-describe String, '#pig_latin' do
-  it "should be a pig!" do
-    "hello".pig_latin.should == "ellohay"
-   end
+describe String do
+  describe '#pig_latin' do
+    it "should be a pig!" do
+      "hello".pig_latin.should == "ellohay"
+     end
 
-  it "should fail to be a pig!" do
-    "hello".pig_latin.should == "hello"
+    it "should fail to be a pig!" do
+      "hello".pig_latin.should == "hello"
+    end
   end
 end
