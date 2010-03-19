@@ -1,4 +1,4 @@
-# Run `yardoc -e ../lib/yard-spec example_code.rb`
+# Run `yardoc -e ../lib/yard-rspec example_code.rb`
 
 
 class String
