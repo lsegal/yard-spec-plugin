@@ -4,7 +4,7 @@ This plugin demonstrates how RSpec tests can be embedded within standard documen
 using only a small amount of plugin code. The example generates documentation
 for the following {String#pig_latin} method and RSpec tests:
 
-  # Run `yardoc -e ../lib/yard-spec example_code.rb`
+  # Run `yardoc -e ../lib/yard-rspec example_code.rb`
 
   class String
     # Pig latin of a String
