@@ -14,6 +14,15 @@ class RSpecDescribeHandler < YARD::Handlers::Ruby::Base
   end
 end
 
+class RSpecContextHandler < YARD::Handlers::Ruby::Base
+  handles method_call(:context)
+  
+  def process
+    parse_block(statement.last.last, owner: owner)
+  rescue YARD::Handlers::NamespaceMissingError
+  end
+end
+
 class RSpecItHandler < YARD::Handlers::Ruby::Base
   handles method_call(:it)
   

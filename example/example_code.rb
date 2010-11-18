@@ -12,13 +12,17 @@ end
 # Specs
 # 
 describe String do
-  describe '#pig_latin' do
-    it "should be a pig!" do
-      "hello".pig_latin.should == "ellohay"
-     end
+  context 'monkey patch for pig latin' do
 
-    it "should fail to be a pig!" do
-      "hello".pig_latin.should == "hello"
+    describe '#pig_latin' do
+      it "should be a pig!" do
+        "hello".pig_latin.should == "ellohay"
+      end
+
+      it "should fail to be a pig!" do
+        "hello".pig_latin.should == "hello"
+      end
+      
     end
   end
 end
