@@ -37,7 +37,7 @@ class RSpecItHandler < YARD::Handlers::Ruby::Base
     
     unless specs.find{ |spec| spec[:name] == name }    
       (obj[:specifications] ||= []) << {
-        name: statement.parameters.first.jump(:string_content).source,
+        name: name,
         file: statement.file,
         line: statement.line,
         source: statement.last.last.source.chomp
