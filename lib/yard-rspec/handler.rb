@@ -31,11 +31,17 @@ class RSpecItHandler < YARD::Handlers::Ruby::Base
     obj = P(owner[:spec])
     return if obj.is_a?(Proxy)
     
-    (obj[:specifications] ||= []) << {
-      name: statement.parameters.first.jump(:string_content).source,
-      file: statement.file,
-      line: statement.line,
-      source: statement.last.last.source.chomp
-    }
+    specs = (obj[:specifications] ||= [])
+    
+    name = statement.parameters.first.jump(:string_content).source
+    
+    unless specs.find{ |spec| spec[:name] == name }    
+      (obj[:specifications] ||= []) << {
+        name: statement.parameters.first.jump(:string_content).source,
+        file: statement.file,
+        line: statement.line,
+        source: statement.last.last.source.chomp
+      }
+    end
   end
 end
