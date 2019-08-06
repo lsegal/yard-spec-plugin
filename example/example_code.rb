@@ -8,17 +8,33 @@ class String
   end
 end
 
-# 
+#
 # Specs
-# 
+#
 describe String do
   describe '#pig_latin' do
     it "should be a pig!" do
-      "hello".pig_latin.should == "ellohay"
+      expect("hello".pig_latin).to eq("ellohay")
      end
 
     it "should fail to be a pig!" do
-      "hello".pig_latin.should == "hello"
+      expect("hello".pig_latin).not_to eq("hello")
+    end
+  end
+
+  describe 'Some context' do
+    describe '#pig_latin' do
+      it 'should still be a pig!' do
+        expect("food".pig_latin).to eq('oodfay')
+      end
+    end
+  end
+
+  describe '#pig_latin' do
+    context 'Some other context' do
+      it 'should still be a pig in some other context!' do
+        expect("avocado".pig_latin).to eq('vocadoaay')
+      end
     end
   end
 end
